@@ -4,7 +4,7 @@ import time
 import discord
 from discord.ext import commands
 import pandas as pd
-from TOKEN import TOKEN
+from TOKEN import TOKEN  # token of bot
 
 client = commands.Bot(command_prefix='$')
 
