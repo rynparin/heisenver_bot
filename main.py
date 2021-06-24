@@ -14,9 +14,9 @@ async def on_ready():
     print(" --------------")
 
 
-@client.command()
-async def hello(ctx):
-    await ctx.send('Hello!')
+# @client.command()
+# async def hello(ctx):
+#     await ctx.send('Hello!')
 
 
 @client.command(pass_context=True)
@@ -35,9 +35,8 @@ async def leave(ctx):
     else:
         await ctx.send("I'm not in the channel!!")
 
+
 # collect messages
-
-
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -61,15 +60,15 @@ async def on_message(message):
                 channel = message.channel
 
             # Aquiring the number of messages to be scraped via the bot command
-            if (len(message.content.split()) > 1 and len(message.channel_mentions) == 0) or len(message.content.split()) > 2:
+            if (len(message.content.split()) > 1):
                 for parameter in parameters:
                     if parameter == "help":
                         answer = discord.Embed(title="Command Format",
-                                               description="""`_scan <channel> <number_of_messages>`\n\n`<channel>` : **the channel you wish to scan**\n`<number_of_messages>` : **the number of messages you wish to scan**\n\n*The order of the parameters does not matter.*""",
+                                               description="""`_scan <number_of_messages>`\n\n`<number_of_messages>` : **the number of messages you wish to scan**\n\n""",
                                                colour=0x1a7794)
                         await message.channel.send(embed=answer)
                         return
-                    elif parameter[0] != "<":  # Channels are enveloped by "<>" as strings
+                    else:
                         limit = int(parameter)
             else:
                 limit = 100
