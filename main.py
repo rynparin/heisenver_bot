@@ -48,7 +48,7 @@ async def on_message(message):
 
             answer = discord.Embed(title="Creating Sasa's song History Dataframe",
                                    description="Please Wait. The data will be sent to you privately once it's finished.",
-                                   colour=0x1a7794)
+                                   colour=int('8E00FF', 16))
 
             await message.channel.send(embed=answer)
 
@@ -81,7 +81,7 @@ async def on_message(message):
 
             answer = discord.Embed(title="Here is your .CSV File",
                                    description=f"""It might have taken a while, but here is what you asked for.\n\n`Server` : **{message.guild.name}**\n`Channel` : **{channel.name}**\n`Messages Read` : **{limit}**""",
-                                   colour=0x1a7794)
+                                   colour=int('8E00FF', 16))
 
             await message.author.send(embed=answer)
             # Sending the file
@@ -97,14 +97,14 @@ async def on_message(message):
                 answer = discord.Embed(title="Here is Sasa random songs",
                                        description='\n'.join(
                                            pick_random(df, int(numbers))),
-                                       colour=0x1a7794)
+                                       colour=int('8E00FF', 16))
                 await message.author.send(embed=answer)
 
             else:
                 df = prepare_data()
                 answer = discord.Embed(title="Here is Sasa random songs",
                                        description='\n'.join(pick_random(df)),
-                                       colour=0x1a7794)
+                                       colour=int('8E00FF', 16))
                 await message.author.send(embed=answer)
 
         elif cmd == 'most':  # pick most played songs
@@ -114,7 +114,7 @@ async def on_message(message):
                 answer = discord.Embed(title="Here is Sasa most played songs",
                                        description='\n'.join(
                                            most_played(df, int(top_k))),
-                                       colour=0x1a7794)
+                                       colour=int('8E00FF', 16))
                 await message.author.send(embed=answer)
 
             else:
@@ -122,7 +122,7 @@ async def on_message(message):
                 answer = discord.Embed(title="Here is Sasa most played songs",
                                        description='\n'.join(
                                            most_played(df)),
-                                       colour=0x1a7794)
+                                       colour=int('8E00FF', 16))
                 await message.author.send(embed=answer)
 
     await client.process_commands(message)  # allow to use client.command

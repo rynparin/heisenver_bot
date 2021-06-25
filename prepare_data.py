@@ -2,7 +2,7 @@ import pandas as pd
 import random
 
 
-def prepare_data(file_path='./data/Thu_Jun_24_18.55.29_2021_data.csv'):
+def prepare_data(file_path='./data/Fri_Jun_25_14.53.04_2021_data.csv'):
     '''read file drop duplicate and sort by frequency'''
     df = pd.read_csv(file_path)
     df.drop(df.columns[0], axis=1, inplace=True)
