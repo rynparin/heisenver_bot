@@ -1,10 +1,11 @@
 import os
-import random
 import time
 import discord
 from discord.ext import commands
+from numpy import number
 import pandas as pd
 from TOKEN import TOKEN  # token of bot
+from prepare_data import *
 
 client = commands.Bot(command_prefix='$')
 
@@ -24,6 +25,8 @@ async def on_message(message):
         cmd = message.content.split()[0].replace("$", "")
         if len(message.content.split()) > 1:
             parameters = message.content.split()[1:]
+        else:
+            parameters = []
 
         # Bot Commands
 
@@ -87,8 +90,40 @@ async def on_message(message):
             if message.author.name != '𝓧𝔂𝓷𝔃':  # if message from me dont delete
                 os.remove(file_location)  # Deleting the file
 
-        elif cmd == 'pick':  # pick random song
-            return
+        elif cmd == 'random':  # pick random song
+            if len(parameters) == 2:
+                numbers, file_path = parameters
+                df = prepare_data(file_path)
+                answer = discord.Embed(title="Here is Sasa random songs",
+                                       description='\n'.join(
+                                           pick_random(df, int(numbers))),
+                                       colour=0x1a7794)
+                await message.author.send(embed=answer)
+
+            else:
+                df = prepare_data()
+                answer = discord.Embed(title="Here is Sasa random songs",
+                                       description='\n'.join(pick_random(df)),
+                                       colour=0x1a7794)
+                await message.author.send(embed=answer)
+
+        elif cmd == 'most':  # pick most played songs
+            if len(parameters) == 2:
+                top_k, file_path = parameters
+                df = prepare_data(file_path)
+                answer = discord.Embed(title="Here is Sasa most played songs",
+                                       description='\n'.join(
+                                           most_played(df, int(top_k))),
+                                       colour=0x1a7794)
+                await message.author.send(embed=answer)
+
+            else:
+                df = prepare_data()
+                answer = discord.Embed(title="Here is Sasa most played songs",
+                                       description='\n'.join(
+                                           most_played(df)),
+                                       colour=0x1a7794)
+                await message.author.send(embed=answer)
 
     await client.process_commands(message)  # allow to use client.command
 
